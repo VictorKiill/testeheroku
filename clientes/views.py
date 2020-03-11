@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 from .models import Cliente
 from .forms import ClienteForm
@@ -63,3 +64,7 @@ def remover_cliente(request, id):
         cliente_service.remover_cliente(cliente)
         return redirect('listar_clientes')
     return render(request, 'clientes/confirma_exclusao.html', {'cliente': cliente})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')

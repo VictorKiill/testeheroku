@@ -1,4 +1,4 @@
-import django.shotcuts umport render, redirect
+import django.shotcuts import render, redirect
 from django.contrib.auth import logout
 
 def logout_view(request):

@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 from .models import Cliente
 from .forms import ClienteForm
@@ -9,12 +10,14 @@ from .services import cliente_service
 
 # Create your views here.
 
+@login_required
 def listar_clientes(request):
     clientes = cliente_service.listar_clientes()
     return render(request, 'clientes/lista_clientes.html', {'clientes': clientes})
 
 # @csrf_exempt
 # Desativando a proteção CSRF
+@login_required
 def inserir_cliente(request):
     if request.method == "POST":
         form = ClienteForm(request.POST)
@@ -32,10 +35,12 @@ def inserir_cliente(request):
         form = ClienteForm()
     return render(request, 'clientes/form_cliente.html', {'form': form})
 
+@login_required
 def listar_cliente_id(request, id):
     cliente = cliente_service.listar_cliente_id(id)
     return render(request, 'clientes/lista_cliente.html', {'cliente': cliente})
 
+@login_required
 def editar_cliente(request, id):
     cliente_antigo = cliente_service.listar_cliente_id(id)
     form = ClienteForm(request.POST or None, instance=cliente_antigo)
@@ -51,6 +56,7 @@ def editar_cliente(request, id):
         return redirect('listar_clientes')
     return render(request, 'clientes/form_cliente.html', {'form': form})
 
+@login_required
 def remover_cliente(request, id):
     cliente = cliente_service.listar_cliente_id(id)
     if request.method == "POST":

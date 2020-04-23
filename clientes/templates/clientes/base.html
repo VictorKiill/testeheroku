@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="{% static 'clientes/css/style.css' %}">
 </head>
 <body>
-<main class="container">
-    <a href="/logout"><button class="btn btn-primary" style="float: right;">Logout</button></a>
-    {% block conteudo %}
+    <a href="/logout"><button class="btn btn-primary" style="float: right;">Logout</button></a>   
+    <main class="container">
+        {% block conteudo %}
 
-    {% endblock conteudo %}
+        {% endblock conteudo %}
 
-</main>
+    </main>
 </body>
 </html>
